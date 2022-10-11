@@ -14,6 +14,11 @@ var cors = require('cors');
 // Base
 const base = require('./api/base');
 
+
+// Swagger
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger.yml')
+
 /*
     Server Code
 */
@@ -36,6 +41,11 @@ const routeIndex = require('./src/index');
 var routeApi = require('./src/routes/api');
 app.use("/", routeIndex);
 app.use('/api', routeApi);
+
+
+// Swagger
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+
 
 
 
