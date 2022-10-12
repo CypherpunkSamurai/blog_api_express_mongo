@@ -136,6 +136,8 @@ router.delete("/blog/:id", async (req, res) => {
         // Parse ID 
         let blog_id = req.params.id;
         let post = await Post.deleteOne({_id: blog_id})
+        // Also delete the posts comments
+        let comments = await Comment.deleteMany({post_id: blog_id});
         // Security Checks
         if (post["deletedCount"] == 0) {
             return res.status(404).json({error: "POST_NOT_FOUND"});
@@ -171,6 +173,9 @@ router.get("/blog/:id/comments", async (req, res) => {
         }
         // Parse ID 
         let blog_id = req.params.id;
+        if (await Post.findById(blog_id) === null) {
+            return res.status(404).json({error: "POST_NOT_FOUND"});
+        }
         // Get Comments by post
         let comments = await Comment.find({post_id: blog_id});
         // Return Comments
