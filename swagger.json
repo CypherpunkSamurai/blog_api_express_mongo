@@ -1,0 +1,720 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Blog Comments REST API",
+    "description": "A Blog Comments Rest API"
+  },
+  "host": [
+    "localhost:3000",
+    "task1-cypherpunksamurai.koyeb.app"
+  ],
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/doc": {
+      "get": {
+        "tags": [
+          "Docs"
+        ],
+        "description": "This page",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Info"
+        ],
+        "description": "Status Check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/blogs": {
+      "get": {
+        "tags": [
+          "Blog Posts"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/blog/create": {
+      "post": {
+        "tags": [
+          "Blog Posts"
+        ],
+        "description": "Create a New Post",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "title",
+            "type": "string",
+            "example": "New Blog",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "content",
+            "type": "string",
+            "required": true,
+            "description": "A Blog Content"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "ID of the post"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "title of the post"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "Content of the post"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "Created date"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "description": "Updated date"
+                },
+                "__v": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Occured",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/blog/{id}": {
+      "get": {
+        "tags": [
+          "Blog Posts"
+        ],
+        "description": "Find a Post by `{id}`",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "ID of the post"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "title of the post"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "Content of the post"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "Created date"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "description": "Updated date"
+                },
+                "__v": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Occured",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Post Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Blog Posts"
+        ],
+        "description": "Delete a Post with `{id}`",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok. Post was deleted",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "acknowledged": {
+                  "type": "boolean",
+                  "description": "If the delete was performed"
+                },
+                "deletedCount": {
+                  "type": "number",
+                  "description": "Number of posts deleted"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Occured",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Post Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/blog/update": {
+      "put": {
+        "tags": [
+          "Blog Posts"
+        ],
+        "description": "Update a Post by `{id}`",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "type": "string",
+            "name": "id",
+            "description": "The Post `{id}` to edit",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "type": "string",
+            "name": "title",
+            "description": "The Post title to edit",
+            "required": false
+          },
+          {
+            "in": "formData",
+            "type": "string",
+            "name": "content",
+            "description": "The Post content to edit",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "ID of the post"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "title of the post"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "Content of the post"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "Created date"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "description": "Updated date"
+                },
+                "__v": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Occured",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Post Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/blog/{id}/comments": {
+      "get": {
+        "tags": [
+          "Comments"
+        ],
+        "description": "Get comments for the post with id: `{id}`",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Post Id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "blog_id": {
+                  "type": "string",
+                  "description": "ID of the blog"
+                },
+                "comments": {
+                  "type": "ArrayOfObjects",
+                  "description": "Comments of the post"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Occured",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Post Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/blog/{id}/comment/add": {
+      "post": {
+        "tags": [
+          "Comments"
+        ],
+        "description": "Add a comment to the post with id: `{id}`",
+        "consumes": "application/x-www-form-urlencoded",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Post Id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "type": "string",
+            "in": "formData",
+            "description": "Comment Content"
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "in": "formData",
+            "description": "Comment Username"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "ID of the comment"
+                },
+                "username": {
+                  "type": "string",
+                  "description": "Username of the comment"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "Content of the comment"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "Created comment"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "description": "Updated comment"
+                },
+                "__v": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Occured",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/blog/{id}/comment/{cid}": {
+      "get": {
+        "tags": [
+          "Comments"
+        ],
+        "description": "Get a comment with id `{cid}` from post `{id}`",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "ID of the comment"
+                },
+                "username": {
+                  "type": "string",
+                  "description": "Username of the comment"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "Content of the comment"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "Created comment"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "description": "Updated comment"
+                },
+                "__v": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Occured",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Comment Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Comments"
+        ],
+        "consumes": "application/x-www-form-urlencoded",
+        "description": "Update a comment with id `{cid}` on post `{id}`",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "in": "formData",
+            "description": "Comment content",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "Comment username",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "ID of the comment"
+                },
+                "username": {
+                  "type": "string",
+                  "description": "Username of the comment"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "Content of the comment"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "Created comment"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "description": "Updated comment"
+                },
+                "__v": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Occured",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Comment Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Comments"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "acknowldge": {
+                  "type": "boolean",
+                  "description": "Comment deleted"
+                },
+                "deletedCount": {
+                  "type": "number",
+                  "description": "Number of comments deleted"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Occured",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Comment Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

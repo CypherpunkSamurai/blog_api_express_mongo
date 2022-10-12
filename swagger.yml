@@ -47,7 +47,6 @@ paths:
         - in: formData
           name: title
           type: string
-          example: New Blog
           required: true
         - in: formData
           name: content
@@ -254,7 +253,7 @@ paths:
                 type: string
                 description: ID of the blog
               comments:
-                type: ArrayOfObjects
+                type: [object]
                 description: Comments of the post
         '400':
           description: Error Occured
@@ -277,7 +276,6 @@ paths:
       tags:
       - Comments
       description: 'Add a comment to the post with id: `{id}`'
-      consumes: "application/x-www-form-urlencoded"
       parameters:
         - name: id
           description: 'Post Id'
@@ -343,23 +341,12 @@ paths:
           schema:
             type: object
             properties:
-              _id:
+              blog_id:
                 type: string
-                description: ID of the comment
-              username:
-                type: string
-                description: Username of the comment
-              content:
-                type: string
-                description: Content of the comment
-              createdAt:
-                type: string
-                description: Created comment
-              updatedAt:
-                type: string
-                description: Updated comment
-              __v:
-                type: number
+                description: ID of the blog
+              comments:
+                type: [object]
+                description: Comments of the post
         '400':
           description: Error Occured
           schema:
@@ -379,8 +366,7 @@ paths:
     put:
       tags:
       - Comments
-      consumes: "application/x-www-form-urlencoded"
-      description: 'Update a comment with id `{cid}` on post `{id}`'
+      description: ''
       parameters:
         - name: id
           in: path
@@ -390,55 +376,24 @@ paths:
           in: path
           required: true
           type: string
-        - name: content
-          in: formData
-          description: 'Comment content'
-          type: string
-          required: true
-        - name: username
-          in: formData
-          description: 'Comment username'
-          type: string
-          required: false
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              username:
+                example: any
+              post_id:
+                example: any
+              content:
+                example: any
       responses:
         '200':
           description: OK
-          schema:
-            type: object
-            properties:
-              _id:
-                type: string
-                description: ID of the comment
-              username:
-                type: string
-                description: Username of the comment
-              content:
-                type: string
-                description: Content of the comment
-              createdAt:
-                type: string
-                description: Created comment
-              updatedAt:
-                type: string
-                description: Updated comment
-              __v:
-                type: number
         '400':
-          description: Error Occured
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error Type
-        '404':
-          description: Comment Not Found
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error Type
+          description: Bad Request
+        '401':
+          description: Unauthorized
     delete:
       tags:
       - Comments
@@ -455,28 +410,7 @@ paths:
       responses:
         '200':
           description: OK
-          schema:
-            type: object
-            properties:
-              acknowldge:
-                type: boolean
-                description: Comment deleted
-              deletedCount:
-                type: number
-                description: Number of comments deleted
         '400':
-          description: Error Occured
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error Type
+          description: Bad Request
         '404':
-          description: Comment Not Found
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Error Type
+          description: Not Found
