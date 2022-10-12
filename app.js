@@ -16,8 +16,8 @@ const base = require('./api/base');
 
 
 // Swagger
-const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('./swagger.yml')
+const sUI = require('swagger-ui-express')
+const sConfig = require('./swagger.yml')
 
 /*
     Server Code
@@ -44,7 +44,7 @@ app.use('/api', routeApi);
 
 
 // Swagger
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use('/doc', sUI.serve, sUI.setup(sConfig))
 
 
 
