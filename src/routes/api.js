@@ -135,9 +135,13 @@ router.delete("/blog/:id", async (req, res) => {
         }
         // Parse ID 
         let blog_id = req.params.id;
-        let del = await Post.deleteOne({_id: blog_id})
+        let post = await Post.deleteOne({_id: blog_id})
+        // Security Checks
+        if (post["deletedCount"] == 0) {
+            return res.status(404).json({error: "POST_NOT_FOUND"});
+        }
         // return delete message
-        return res.status(200).json(del);
+        return res.status(200).json(post);
     } catch (e) {
         handleError(e,res, 'post:delete');
     }
