@@ -5,10 +5,7 @@
     "title": "Blog Comments REST API",
     "description": "A Blog Comments Rest API"
   },
-  "host": [
-    "localhost:3000",
-    "task1-cypherpunksamurai.koyeb.app"
-  ],
+  "host": "task1-cypherpunksamurai.koyeb.app",
   "basePath": "/",
   "schemes": [
     "http",
@@ -52,7 +49,31 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "posts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  },
+                  "description": "All Posts"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error Occured",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Error Type"
+                }
+              }
+            }
           }
         }
       }
@@ -375,7 +396,10 @@
                   "description": "ID of the blog"
                 },
                 "comments": {
-                  "type": "ArrayOfObjects",
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  },
                   "description": "Comments of the post"
                 }
               }

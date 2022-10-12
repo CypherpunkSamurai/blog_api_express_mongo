@@ -42,7 +42,7 @@ router.get("/blogs", async (req, res) => {
     try {
         // Return Posts
         const posts = await Post.find();
-        return res.status(200).json(posts);
+        return res.status(200).json({posts: posts});
     } catch (e) {
         handleError(res, e, 'posts');
     }
