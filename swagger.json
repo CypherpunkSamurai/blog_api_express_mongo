@@ -12,7 +12,7 @@
     "https"
   ],
   "paths": {
-    "/doc": {
+    "/docs": {
       "get": {
         "tags": [
           "Docs"
